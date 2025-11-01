@@ -2,10 +2,25 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Filter } from "lucide-react";
 
-export function NewsFilter() {
+interface NewsFilterProps {
+  selectedSource: string;
+  selectedSentiment: string;
+  selectedImpact: string;
+  onSourceChange: (source: string) => void;
+  onSentimentChange: (sentiment: string) => void;
+  onImpactChange: (impact: string) => void;
+}
+
+export function NewsFilter({
+  selectedSource,
+  selectedSentiment,
+  selectedImpact,
+  onSourceChange,
+  onSentimentChange,
+  onImpactChange,
+}: NewsFilterProps) {
   const sources = [
     "All",
     "CNBC",
@@ -18,7 +33,7 @@ export function NewsFilter() {
     "Seeking Alpha",
   ];
   const sentiments = ["All", "Bullish", "Neutral", "Bearish"];
-  const impacts = ["All", "High Impact", "Medium Impact", "Low Impact"];
+  const impacts = ["All", "High", "Medium", "Low"];
 
   return (
     <Card>
@@ -38,8 +53,9 @@ export function NewsFilter() {
                 {sources.map((source) => (
                   <Button
                     key={source}
-                    variant={source === "All" ? "default" : "outline"}
+                    variant={selectedSource === source ? "default" : "outline"}
                     size="sm"
+                    onClick={() => onSourceChange(source)}
                   >
                     {source}
                   </Button>
@@ -55,8 +71,9 @@ export function NewsFilter() {
                 {sentiments.map((sentiment) => (
                   <Button
                     key={sentiment}
-                    variant={sentiment === "All" ? "default" : "outline"}
+                    variant={selectedSentiment === sentiment ? "default" : "outline"}
                     size="sm"
+                    onClick={() => onSentimentChange(sentiment)}
                   >
                     {sentiment}
                   </Button>
@@ -72,8 +89,9 @@ export function NewsFilter() {
                 {impacts.map((impact) => (
                   <Button
                     key={impact}
-                    variant={impact === "All" ? "default" : "outline"}
+                    variant={selectedImpact === impact ? "default" : "outline"}
                     size="sm"
+                    onClick={() => onImpactChange(impact)}
                   >
                     {impact}
                   </Button>

@@ -21,12 +21,13 @@ import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 
 const navigation = [
-  { name: "Market Overview", href: "/", icon: LayoutDashboard },
+  { name: "Market", href: "/", icon: LayoutDashboard },
   { name: "Sectors", href: "/sectors", icon: PieChart },
   { name: "ETFs", href: "/etfs", icon: Layers },
   { name: "News", href: "/news", icon: Newspaper },
-  { name: "Fear & Greed", href: "/fear-greed", icon: Activity },
   { name: "Analysis", href: "/analysis", icon: TrendingUp },
+  { name: "Fear & Greed", href: "/fear-greed", icon: Activity },
+  { name: "Hours", href: "/market-hours", icon: Clock },
 ];
 
 export function Navigation() {

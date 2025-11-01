@@ -1,8 +1,15 @@
+"use client";
+
 import { NewsAggregator } from "@/components/news-aggregator";
 import { NewsSentiment } from "@/components/news-sentiment";
 import { NewsFilter } from "@/components/news-filter";
+import { useState } from "react";
 
 export default function NewsPage() {
+  const [selectedSource, setSelectedSource] = useState("All");
+  const [selectedSentiment, setSelectedSentiment] = useState("All");
+  const [selectedImpact, setSelectedImpact] = useState("All");
+
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
       <div className="space-y-2">
@@ -12,11 +19,22 @@ export default function NewsPage() {
         </p>
       </div>
 
-      <NewsFilter />
+      <NewsFilter
+        selectedSource={selectedSource}
+        selectedSentiment={selectedSentiment}
+        selectedImpact={selectedImpact}
+        onSourceChange={setSelectedSource}
+        onSentimentChange={setSelectedSentiment}
+        onImpactChange={setSelectedImpact}
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <NewsAggregator />
+          <NewsAggregator
+            selectedSource={selectedSource}
+            selectedSentiment={selectedSentiment}
+            selectedImpact={selectedImpact}
+          />
         </div>
         <div>
           <NewsSentiment />

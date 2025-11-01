@@ -5,8 +5,18 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, TrendingUp, TrendingDown, Minus, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export function NewsAggregator() {
-  const newsItems = [
+interface NewsAggregatorProps {
+  selectedSource?: string;
+  selectedSentiment?: string;
+  selectedImpact?: string;
+}
+
+export function NewsAggregator({
+  selectedSource = "All",
+  selectedSentiment = "All",
+  selectedImpact = "All",
+}: NewsAggregatorProps) {
+  const allNewsItems = [
     {
       id: 1,
       title: "NVIDIA Announces New AI Chip, Stock Surges 3.8%",
@@ -68,6 +78,15 @@ export function NewsAggregator() {
       url: "#",
     },
   ];
+
+  // Filter news items based on selections
+  const newsItems = allNewsItems.filter((item) => {
+    const matchesSource = selectedSource === "All" || item.source === selectedSource;
+    const matchesSentiment = selectedSentiment === "All" || item.sentiment === selectedSentiment.toLowerCase();
+    const matchesImpact = selectedImpact === "All" || item.impact === selectedImpact.toLowerCase();
+
+    return matchesSource && matchesSentiment && matchesImpact;
+  });
 
   const getSentimentIcon = (sentiment: string) => {
     switch (sentiment) {
