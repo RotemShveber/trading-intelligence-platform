@@ -1,6 +1,7 @@
 import { SectorDistribution } from "@/components/sector-distribution";
 import { SectorPerformance } from "@/components/sector-performance";
 import { SectorHeatmap } from "@/components/sector-heatmap";
+import { SectorStocks } from "@/components/sector-stocks";
 
 export default function SectorsPage() {
   return (
@@ -18,6 +19,8 @@ export default function SectorsPage() {
       </div>
 
       <SectorHeatmap />
+
+      <SectorStocks />
     </div>
   );
 }
