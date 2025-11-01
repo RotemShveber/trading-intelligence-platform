@@ -6,9 +6,19 @@ import { Badge } from "@/components/ui/badge";
 import { Filter } from "lucide-react";
 
 export function NewsFilter() {
-  const sources = ["All", "CNBC", "Bloomberg", "Reuters", "WSJ", "TradingView"];
+  const sources = [
+    "All",
+    "CNBC",
+    "Bloomberg",
+    "Reuters",
+    "WSJ",
+    "TradingView",
+    "MarketWatch",
+    "Yahoo Finance",
+    "Seeking Alpha",
+  ];
   const sentiments = ["All", "Bullish", "Neutral", "Bearish"];
-  const impacts = ["All", "High Impact", "Medium Impact"];
+  const impacts = ["All", "High Impact", "Medium Impact", "Low Impact"];
 
   return (
     <Card>

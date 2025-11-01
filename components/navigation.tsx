@@ -8,10 +8,16 @@ import {
   Newspaper,
   TrendingUp,
   Activity,
-  Search
+  Search,
+  Moon,
+  Sun,
+  Clock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge";
 
 const navigation = [
   { name: "Market Overview", href: "/", icon: LayoutDashboard },
@@ -23,6 +29,29 @@ const navigation = [
 
 export function Navigation() {
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState(new Date());
+
+  useEffect(() => {
+    setMounted(true);
+    // Update the timestamp every minute
+    const interval = setInterval(() => {
+      setLastUpdate(new Date());
+    }, 60000); // 60 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatLastUpdate = () => {
+    const now = new Date();
+    const diff = Math.floor((now.getTime() - lastUpdate.getTime()) / 1000);
+
+    if (diff < 60) return "Just now";
+    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+    return lastUpdate.toLocaleTimeString();
+  };
 
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
@@ -60,9 +89,29 @@ export function Navigation() {
           </div>
 
           <div className="flex items-center gap-2">
+            <div className="hidden lg:flex items-center gap-2 text-xs text-muted-foreground mr-2">
+              <Clock className="h-3 w-3" />
+              <span>Last update: {formatLastUpdate()}</span>
+              <Badge variant="outline" className="text-xs">
+                {lastUpdate.toLocaleTimeString()}
+              </Badge>
+            </div>
             <Button variant="outline" size="icon" className="relative">
               <Search className="h-4 w-4" />
             </Button>
+            {mounted && (
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              >
+                {theme === "dark" ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                )}
+              </Button>
+            )}
           </div>
         </div>
       </div>
